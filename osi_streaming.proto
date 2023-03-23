@@ -78,15 +78,10 @@ message Streaming
 
     // To discuss: What about HostVehicleData?
 
-    // To discuss: What about obsolet objects?
-    // Approach 1: is_obsolete flags inside the messages (example see osi_object.proto)
+    // Entities that will no longer be updated, because they are considered
+    // obsolete by the sender.
     //
-    // Approach 2: Is shown below, id_lists (also for traffic lights etc.)
-    // Vehicles that may have been disappeared because of being out of simulation range.
+    // Note: IDs are globally unique.
     //
-    // \note Todo: How often does it need to be sent?
-    //
-    //repeated Identifier disappeared_moving_object_id = x;
-    //
-    // Approach 3: This message with an enum describing if content is to update or to delete.
+    repeated Identifier obsolete_id = 8;
 }
