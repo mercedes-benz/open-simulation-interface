@@ -1,10 +1,13 @@
 syntax = "proto2";
+
 option optimize_for = SPEED;
+
 import "osi_version.proto";
 import "osi_common.proto";
 import "osi_object.proto";
+import "osi_trafficsign.proto";
 import "osi_trafficlight.proto";
-//import "osi_hostvehicledata.proto";
+import "osi_environment.proto";
 
 package osi3;
 
@@ -14,7 +17,7 @@ package osi3;
 // models to provide updates to their position, state and future
 // trajectory back to the simulation environment. The message is
 // designed to update data of exactly one traffic participant,
-// optionally with an attached trailer. 
+// optionally with an attached trailer.
 //
 // \note For reasons of convenience and consistency, the updated
 // information is provided as a MovingObject.  Certain fields of this
@@ -37,9 +40,9 @@ message Streaming
     // the simulation.
     //
     // \note For moving object update data the timestamp coincides both with
-    // the notional simulation time the data applies to and the time it was sent.
-    // There is no inherent latency for moving object update data, as opposed
-    // to sensor data.
+    // the notional simulation time the data applies to and the time it was
+    // sent. There is no inherent latency for moving object update data, as
+    // opposed to sensor data.
     //
     optional Timestamp timestamp = 2;
 
@@ -52,13 +55,14 @@ message Streaming
     // Updated traffic participant data
     //
     // \note It is not expected that static fields are populated. If they
-    // are, they may be ignored by the receiver of this message, for example, dimensions,
-    // or vehicle category.  All dynamic fields should be populated where known,
-    // for example, velocity, light states, or future trajectory.
+    // are, they may be ignored by the receiver of this message, for example,
+    // dimensions, or vehicle category.  All dynamic fields should be populated
+    // where known, for example, velocity, light states, or future trajectory.
     //
-    // \note The field is repeated because it is possible to have a trailer attached to
-    // a vehicle, see MovingObject::VehicleClassification::has_trailer and
-    // MovingObject::VehicleClassification::trailer_id. 
+    // \note The field is repeated because it is possible to have a trailer
+    // attached to a vehicle, see
+    // MovingObject::VehicleClassification::has_trailer and
+    // MovingObject::VehicleClassification::trailer_id.
     //
     repeated MovingObject moving_object_update = 4;
 
@@ -71,8 +75,8 @@ message Streaming
     //
     repeated TrafficLight traffic_light_update = 6;
 
-    // To discuss: Here or from osi_ground_truth if sended in a lower cycle time?
-    // Conditions of the environment.
+    // To discuss: Here or from osi_ground_truth if sended in a lower cycle
+    // time? Conditions of the environment.
     //
     optional EnvironmentalConditions environmental_conditions = 7;
 
